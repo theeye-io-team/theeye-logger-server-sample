@@ -2,7 +2,6 @@ const express = require('express')
 const cors = require('cors')
 
 const bodyParser = require('body-parser')
-const got = require('got')
 const fs = require('fs')
 
 const main = () => {
