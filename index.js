@@ -1,3 +1,5 @@
+const path = require('path')
+const debug = require('debug')('theeye:logger')
 const express = require('express')
 const cors = require('cors')
 
@@ -27,8 +29,10 @@ class Api {
     // parse application/json
     app.use(bodyParser.json())
 
-    app.post('/*', function (req, res) {
-      //console.log('Incomming ' + req.url)
+    app.post('/*', (req, res) => {
+      debug('Incomming %j', req.url)
+      debug('Event payload %j', req.body)
+
       dataStream.write(JSON.stringify({
         url: req.url,
         headers: req.headers,
@@ -38,9 +42,8 @@ class Api {
       res.status(200).json('ok')
     })
 
-    app.listen(8001, function () {
-      console.log('listening on port 8001')
-    })
+    const port = process.env.PORT || 8001
+    app.listen(port, () => debug(`listening on port ${port}`))
   }
 }
 
