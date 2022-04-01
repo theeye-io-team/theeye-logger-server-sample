@@ -80,13 +80,20 @@ class Row extends React.Component {
       border: '1px solid #999',
       padding: '5px',
       margin: '5px',
-      'background-color':'#EEE'
+      backgroundColor:'#EEE'
     }
   }
 
   render () {
     const { index, value } = this.props
-    const data = JSON.parse(value)
+    let data
+    try {
+      data = JSON.parse(value)
+    } catch (err) {
+      console.log(`value: ${value}`)
+      return <div style={this.styles}>error</div>
+    }
+
     const { url, headers, body } = data
 
     const labelStyles = {
@@ -96,30 +103,42 @@ class Row extends React.Component {
 
     return (
       <div style={this.styles}>
-      <div>
-      <label style={labelStyles}>URL</label>
-      <span>{url}</span>
-      </div>
-      <div>
-      <label style={labelStyles}>Topic</label>
-      <span>{body.topic}</span>
-      </div>
-      <div>
-      <label style={labelStyles}>Organization</label>
-      <span>{body.organization}</span>
-      </div>
-      <div>
-      <label style={labelStyles}>Name</label>
-      <span>{body.model_name}</span>
-      </div>
-      <div>
-      <label style={labelStyles}>Type</label>
-      <span>{body.model_type} </span>
-      </div>
-      <div>
-      <label style={labelStyles}>Operation</label> 
-      <span>{body.operation} </span>
-      </div>
+        <div>
+          <label style={labelStyles}>URL</label>
+          <span>{url}</span>
+        </div>
+        <div>
+          <label style={labelStyles}>Topic</label>
+          <span>{body.topic}</span>
+        </div>
+        <div>
+          <label style={labelStyles}>Organization</label>
+          <span>{body.organization}</span>
+        </div>
+        <div>
+          <label style={labelStyles}>Name</label>
+          <span>{body.model_name}</span>
+        </div>
+        <div>
+          <label style={labelStyles}>Type</label>
+          <span>{body.model_type} </span>
+        </div>
+        <div>
+          <label style={labelStyles}>Operation</label> 
+          <span>{body.operation} </span>
+        </div>
+        <div>
+          <label style={labelStyles}>Username</label> 
+          <span>{body.user_name} </span>
+        </div>
+        <div>
+          <label style={labelStyles}>Email</label> 
+          <span>{body.user_email} </span>
+        </div>
+        <div>
+          <label style={labelStyles}>Full</label> 
+          <span>{JSON.stringify(body)} </span>
+        </div>
       </div>
     )
   }

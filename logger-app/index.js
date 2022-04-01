@@ -13,6 +13,9 @@ const main = () => {
 
 }
 
+//const Events = ['user-crud','customer-crud','task-crud','member-crud']
+const Events = ['user-crud','customer-crud','task-crud','member-crud','indicator-crud','job-crud']
+
 class Api {
   constructor () {
   }
@@ -30,14 +33,19 @@ class Api {
     app.use(bodyParser.json())
 
     app.post('/*', (req, res) => {
-      debug('Incomming %j', req.url)
-      debug('Event payload %j', req.body)
 
-      dataStream.write(JSON.stringify({
-        url: req.url,
-        headers: req.headers,
-        body: req.body
-      }) + '\n')
+      debug('Incomming %j', req.url)
+
+      if (Events.indexOf(req.body.topic) !== -1) {
+        debug('Event payload %j', req.body)
+        dataStream.write(JSON.stringify({
+          url: req.url,
+          headers: req.headers,
+          body: req.body
+        }) + '\n')
+      } else {
+        debug('Ignored')
+      }
 
       res.status(200).json('ok')
     })
