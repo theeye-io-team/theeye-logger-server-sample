@@ -1,4 +1,4 @@
-# api de ejemplo para debug de eventos emitidos por theeye.
+# api de ejemplo para recepción y debug de eventos emitidos por theeye.
 
 ## Servidor (receptor de logs)
 
